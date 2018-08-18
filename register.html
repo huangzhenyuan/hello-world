@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>注册</title>
+	<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	form{	
+		width: 30%;
+		background: #87CEFA;
+		margin: 10% auto 0 auto;
+		padding: 10% 0;
+		text-align: center;
+	}
+	span{
+		margin: 0 1%;
+	}
+	input{
+		margin: 1% 0;
+	}
+	p{
+		color: red;
+	}
+	#rgr{
+		background: #48D1CC;
+		border-radius: 10%;
+		padding-top: 2%;
+		padding-bottom: 2%;
+		width: 20%;
+	}
+    </style>
+    <script type="text/javascript">
+    	window.onload=function(){
+    	    var form=document.getElementsByTagName("form");
+    	    var input=document.getElementsByTagName("input");
+            // var user=document.getElementById("user");
+            // var pwd=document.getElementById("pwd");
+    	    // var rgr=document.getElementById("rgr");
+            function notNull(){
+            	var userValue=input[0].value;
+            	var noSpaceValue=userValue.replace(/\s/g,""); 
+    		    if(noSpaceValue!="" && input[1].value!=""){
+    		        input[2].removeAttribute("disabled");
+    		    }else{
+    		    	input[2].setAttribute("disabled","disabled");
+    		    };  		    	     	    	
+    	    };
+
+    	    input[0].addEventListener("input",notNull);
+    	    input[1].addEventListener("input",notNull);
+
+            document.onkeyup = function (e) {
+                var code = e.charCode || e.keyCode;
+                if (code == 13) {
+                    input[0].focus();               	
+                    if(input[0].value!=""){
+                    	input[1].focus();
+                    }else if(input[1].value!=""){
+                    	input[0].focus();
+                    };                                 
+                };
+            };
+
+    	    form[0].onsubmit=function(){
+    	    	var pwdValue=input[1].value;
+                function isValid(pwdValue) { 
+                	return /^\w+$/.test(pwdValue); 
+                };
+                function isPureDigits(pwdValue) { 
+                	return /^\d+$/.test(pwdValue);
+                };
+                if(isValid(pwdValue)==true&&isPureDigits(pwdValue)==false&&pwdValue.length>=6){
+                    alert("账号："+input[0].value+"   "+"密码："+pwdValue);
+                    return true;
+                }else{
+                    alert("密码由字母数字和下划线组成，不能为纯数字，至少6个");
+                    return false;
+                };    	    	
+    	    };
+
+        };
+    </script>
+</head>
+<body>
+	<form>
+		<label>
+			<span>昵称</span>
+			<input id="user" type="text" autofocus>
+		</label><br>
+		<label>
+			<span>密码</span>
+			<input id="pwd" type="password">
+		</label><br>
+		<input id="rgr" type="submit" value="注册" disabled="disabled">
+		<p>*密码由字母数字和下划线组</p>
+		<p>成，不能为纯数字，至少6个</p>
+	</form>		
+</body>
+</html>
